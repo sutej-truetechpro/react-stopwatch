@@ -64,10 +64,15 @@ export default class Timer extends React.Component {
 
         for (const [index, value] of this.state.splitArr.entries()) {
             items.push(
-                <div>
-                    <span key={index}>{value}</span>
-                    <span>comments <input type="text"/></span>
-                </div>
+                <form>
+                    <div className="form-group row mx-auto m-2">
+                        <label className="col-sm-2 col-form-label">{value}</label>
+                        <span className="col-sm-1"/>
+                        <div className="col-sm-8">
+                            <input type="text" className="form-control"/>
+                        </div>
+                    </div>
+                </form>
             )
         }
         return (
@@ -79,9 +84,7 @@ export default class Timer extends React.Component {
                 {/*<button disabled={this.state.handler} onClick={this.resumeTimer}>Resume Timer</button>*/}
                 <button disabled={!this.state.handler} onClick={this.stopTimer}>Stop Timer</button>
                 <div className={'timer'}>{this.state.timer}</div>
-                <div className={'comment-box'}>
-                    {items}
-                </div>
+                {this.state.splitArr.length > 0 ? <div className={'comment-box'}>{items}</div> : null}
             </div>
         );
     }

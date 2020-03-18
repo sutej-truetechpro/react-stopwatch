@@ -13,6 +13,7 @@ button {
     margin: 10px 5px;
     appearance: none;
     border: 1px solid #ccc;
+    border-radius: 3px;
     padding: 5px 8px;
     background-color: rgba(0, 128, 0, 0.51);
     font-family: 'Roboto', sans-serif;
@@ -23,9 +24,13 @@ button {
 
 .comment-box {
     border: 1px solid #cccccc;
-    background-color: #61dafb;
+    background-color: rgba(23, 52, 60, 0.44);
     max-width: 500px;
+    max-height: 300px;
+    overflow: auto;
     margin: auto;
+    border-radius: 3px;
+    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3)
 }
 
 
