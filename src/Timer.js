@@ -16,6 +16,7 @@ export default class Timer extends React.Component {
         this.pauseTimer = this.pauseTimer.bind(this);
         this.resumeTimer = this.resumeTimer.bind(this);
     }
+
     componentDidMount() {
         console.log('mounted');
     }
@@ -23,25 +24,37 @@ export default class Timer extends React.Component {
     startTimer() {
         this.time = new Date('2000-01-01 00:00:00');
         this.updateTime();
-        this.state.handler = setInterval(this.updateTime, 1000 );
+        this.setState(
+            {handler: setInterval(this.updateTime, 100)}
+        );
     }
+
     pauseTimer() {
         clearInterval(this.state.handler);
         this.setState({handler: false});
     }
+
     resumeTimer() {
-        this.state.handler = setInterval(this.updateTime, 1000 );
+        this.setState(
+            {handler: setInterval(this.updateTime, 100)}
+        );
     }
+
     stopTimer() {
         clearInterval(this.state.handler);
-        this.setState({handler: false});
-        this.setState({timer: ''});
+        this.setState({
+            handler: false,
+            timer: ''
+        });
+
         console.log(this.handler)
     }
+
     updateTime() {
         console.log('sd');
-        let newTime = this.time.setSeconds(this.time.getSeconds() + 1);
-        this.setState({timer: moment(newTime).format('mm:ss')});
+        let newTime = this.time.setMilliseconds(this.time.getMilliseconds() + 100);
+        console.log('sd', newTime, moment(newTime).format('mm:ss'));
+        this.setState({timer: moment(newTime).format('mm:ss:SSS')});
     }
 
     render() {
