@@ -1,0 +1,22 @@
+.timer {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+}
+.heading {
+    font-size: 25px;
+    margin: 15px 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-size: 16px;
+    margin: 10px 5px;
+    appearance: none;
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    background-color: rgba(0, 128, 0, 0.51);
+    font-family: 'Roboto', sans-serif;
+}
+button:disabled {
+    background-color: rgba(204, 204, 204, 0.5);
+}
