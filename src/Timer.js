@@ -1,6 +1,6 @@
 import React from "react";
 import * as moment from 'moment'
-import './Timer.css'
+import './Timer.scss'
 
 export default class Timer extends React.Component {
     constructor(props) {
