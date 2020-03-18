@@ -21,7 +21,7 @@ export default class Timer extends React.Component {
         this.time = new Date('2000-01-01 00:00:00');
         this.updateTime();
         this.setState(
-            {handler: setInterval(this.updateTime, 100)}
+            {handler: setInterval(this.updateTime, 121)}
         );
     }
 
@@ -32,7 +32,7 @@ export default class Timer extends React.Component {
 
     resumeTimer() {
         this.setState(
-            {handler: setInterval(this.updateTime, 100)}
+            {handler: setInterval(this.updateTime, 121)}
         );
     }
 
@@ -45,7 +45,7 @@ export default class Timer extends React.Component {
     }
 
     updateTime() {
-        let newTime = this.time.setMilliseconds(this.time.getMilliseconds() + 100);
+        let newTime = this.time.setMilliseconds(this.time.getMilliseconds() + 121);
         this.setState({timer: moment(newTime).format('mm:ss:SSS')});
     }
 
