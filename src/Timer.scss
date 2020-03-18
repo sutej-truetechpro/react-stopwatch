@@ -20,3 +20,16 @@ button {
         background-color: rgba(204, 204, 204, 0.5);
     }
 }
+
+.comment-box {
+    border: 1px solid #cccccc;
+    background-color: #61dafb;
+    max-width: 500px;
+    margin: auto;
+}
+
+
+.comment-box span {
+    display: inline-block;
+    margin: 10px 20px;
+}
