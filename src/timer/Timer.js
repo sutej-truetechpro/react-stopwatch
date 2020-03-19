@@ -55,7 +55,7 @@ export default class Timer extends React.Component {
 
     split() {
         let arr = this.state.splitArr;
-        arr.push(this.state.timer);
+        arr.push({time: this.state.timer, comment: ''});
         this.setState({splitArr: arr});
         console.log('timer', this.state.splitArr);
     }
@@ -69,15 +69,11 @@ export default class Timer extends React.Component {
 
     downloadCSV() {
         let comments = document.querySelectorAll('.split-row .form-control');
-        let arr = [];
-        comments.forEach(input => {
-            arr.push(input.value);
-        });
         let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += 'time, comments' + "\r\n";
+        csvContent += 'Time,Comments\r\n';
         let csvLength = this.state.splitArr.length;
-        for(let x = 0; x < csvLength; x++) {
-            let row = this.state.splitArr[x] + ',' + arr[x];
+        for (let x = 0; x < csvLength; x++) {
+            let row = this.state.splitArr[x].time + ',' + this.state.splitArr[x].comment;
             csvContent += row + "\r\n";
         }
         var encodedUri = encodeURI(csvContent);
@@ -89,17 +85,25 @@ export default class Timer extends React.Component {
         link.click();
     }
 
+    updateComment(comment, index) {
+        let arr = this.state.splitArr;
+        arr[index].comment = comment;
+        this.setState({splitArr: arr});
+        console.log('value', comment)
+    }
+
     render() {
         const items = [];
 
         for (const [index, value] of this.state.splitArr.entries()) {
             items.push(
                 <div className='row split-row align-items-center' key={index}>
-                    <div className="col-md-2"><span className='px-2 fa fa-times' onClick={() => this.deleteSplit(index)}/></div>
-                    <div className="col-md-3 text-left"><span className='px-2'>{value}</span></div>
+                    <div className="col-md-2"><span className='px-2 fa fa-times'
+                                                    onClick={() => this.deleteSplit(index)}/></div>
+                    <div className="col-md-3 text-left"><span className='px-2'>{value.time}</span></div>
                     <div className="col-md-7 text-left">
                         <div className="px-2">
-                            <input type="text" className="form-control comment"/>
+                            <input type="text" onChange={($event) => this.updateComment($event.target.value, index)} value={value.comment} className="form-control comment"/>
                         </div>
                     </div>
                     {/*<div className="form-group row mx-auto m-2">*/}
