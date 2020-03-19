@@ -25,16 +25,30 @@ button {
 .comment-box {
     border: 1px solid #cccccc;
     background-color: rgba(23, 52, 60, 0.44);
-    max-width: 500px;
+    max-width: 600px;
     max-height: 300px;
     overflow: auto;
     margin: auto;
     border-radius: 3px;
-    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3)
+    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3);
+    .header {
+        font-size: 18px;
+        margin: 15px 0;
+        text-align: center;
+    }
+    .split-row {
+        margin: 15px 0;
+        span.fa-times {
+            cursor: pointer;
+            &:hover {
+                color: rgba(255, 0, 0, 0.85);
+            }
+        }
+    }
 }
 
 
-.comment-box span {
-    display: inline-block;
-    margin: 10px 20px;
-}
+//.comment-box span {
+//    display: inline-block;
+//    margin: 10px 20px;
+//}

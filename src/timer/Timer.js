@@ -17,6 +17,7 @@ export default class Timer extends React.Component {
         this.pauseTimer = this.pauseTimer.bind(this);
         this.resumeTimer = this.resumeTimer.bind(this);
         this.split = this.split.bind(this);
+        this.downloadCSV = this.downloadCSV.bind(this);
     }
 
     startTimer() {
@@ -59,20 +60,56 @@ export default class Timer extends React.Component {
         console.log('timer', this.state.splitArr);
     }
 
+    deleteSplit(index) {
+        console.log('index', index);
+        let arr = this.state.splitArr;
+        arr.splice(index, 1);
+        this.setState({splitArr: arr})
+    }
+
+    downloadCSV() {
+        let comments = document.querySelectorAll('.split-row .form-control');
+        let arr = [];
+        comments.forEach(input => {
+            arr.push(input.value);
+        });
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += 'time, comments' + "\r\n";
+        let csvLength = this.state.splitArr.length;
+        for(let x = 0; x < csvLength; x++) {
+            let row = this.state.splitArr[x] + ',' + arr[x];
+            csvContent += row + "\r\n";
+        }
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "stop_watch.csv");
+        document.body.appendChild(link); // Required for FF
+
+        link.click();
+    }
+
     render() {
         const items = [];
 
         for (const [index, value] of this.state.splitArr.entries()) {
             items.push(
-                <form>
-                    <div className="form-group row mx-auto m-2">
-                        <label className="col-sm-2 col-form-label">{value}</label>
-                        <span className="col-sm-1"/>
-                        <div className="col-sm-8">
-                            <input type="text" className="form-control"/>
+                <div className='row split-row align-items-center' key={index}>
+                    <div className="col-md-2"><span className='px-2 fa fa-times' onClick={() => this.deleteSplit(index)}/></div>
+                    <div className="col-md-3 text-left"><span className='px-2'>{value}</span></div>
+                    <div className="col-md-7 text-left">
+                        <div className="px-2">
+                            <input type="text" className="form-control comment"/>
                         </div>
                     </div>
-                </form>
+                    {/*<div className="form-group row mx-auto m-2">*/}
+                    {/*    <label className="col-sm-2 col-form-label">{value}</label>*/}
+                    {/*    <span className="col-sm-1"/>*/}
+                    {/*    <div className="col-sm-8">*/}
+                    {/*        <input type="text" className="form-control"/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                </div>
             )
         }
         return (
@@ -84,7 +121,16 @@ export default class Timer extends React.Component {
                 {/*<button disabled={this.state.handler} onClick={this.resumeTimer}>Resume Timer</button>*/}
                 <button disabled={!this.state.handler} onClick={this.stopTimer}>Stop Timer</button>
                 <div className={'timer'}>{this.state.timer}</div>
-                {this.state.splitArr.length > 0 ? <div className={'comment-box'}>{items}</div> : null}
+                {this.state.splitArr.length > 0 ? <div className='comment-box container'>
+                    <div className="row header">
+                        <div className="col-md-5"><span className='px-2'>Elapsed Time</span></div>
+                        <div className="col-md-7"><span className='px-2'>Comments</span></div>
+                    </div>
+                    {items}
+                    <div className='download-button'>
+                        <button className='btn btn-primary' onClick={this.downloadCSV}>download CSV</button>
+                    </div>
+                </div> : null}
             </div>
         );
     }
